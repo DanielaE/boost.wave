@@ -33,7 +33,7 @@ typedef boost::wave::cpplexer::lexertl::lex_iterator<token_type> lexer_type;
 
 ///////////////////////////////////////////////////////////////////////////////
 int 
-main(int argc, char *argv[])
+main(int, char*[])
 {
     try {
         token_type::position_type pos("<testdata>");

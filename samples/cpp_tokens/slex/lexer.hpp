@@ -63,6 +63,10 @@
 #define BOOST_SPIRIT_IT_NS std
 #endif
 
+#if defined(BOOST_MSVC)
+#pragma warning(disable: 4127)
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace spirit {
@@ -1025,6 +1029,7 @@ struct get_byte_aux<1>
     unsigned char operator()(CharT c, unsigned int byte)
     {
         BOOST_ASSERT(byte == 0);
+        (void)byte;
         return c;
     }
 };
@@ -1692,6 +1697,7 @@ public:
     void operator()(const char_t c) const
     {
         BOOST_ASSERT(c == '.');
+        (void)c;
         do_any_char();
     }
 
