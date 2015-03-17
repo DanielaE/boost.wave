@@ -33,6 +33,11 @@
 #include BOOST_ABI_PREFIX
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4245) // conversion signed/unsigned mismatch
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace wave { 
@@ -110,6 +115,8 @@ struct defined_grammar :
     };
 
     ContainerT &result_seq;
+private:
+    defined_grammar& operator=(const defined_grammar&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -176,6 +183,10 @@ defined_grammar_gen<LexIteratorT>::parse_operator_defined (
 }   // namespace grammars
 }   // namespace wave
 }   // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS

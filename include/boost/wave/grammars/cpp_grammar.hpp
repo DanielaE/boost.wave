@@ -36,6 +36,11 @@
 #include BOOST_ABI_PREFIX
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4245) // conversion signed/unsigned mismatch
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace wave { 
@@ -63,6 +68,8 @@ namespace impl {
         }
         
         bool &found_eof;
+    private:
+        store_found_eof& operator=(const store_found_eof&);
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -86,6 +93,8 @@ namespace impl {
         }
         
         TokenT &found_directive;
+    private:
+        store_found_directive& operator=(const store_found_directive&);
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,6 +120,8 @@ namespace impl {
         }
         
         ContainerT &found_eoltokens;
+    private:
+        store_found_eoltokens& operator=(const store_found_eoltokens&);
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -678,6 +689,8 @@ struct cpp_grammar :
     };
     mutable map_ruleid_to_name map_rule_id_to_name;
 #endif // WAVE_DUMP_PARSE_TREE != 0
+    private:
+        cpp_grammar& operator=(const cpp_grammar&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -729,7 +742,7 @@ boost::spirit::classic::tree_parse_info<
 >
 cpp_grammar_gen<LexIteratorT, TokenContainerT>::parse_cpp_grammar (
     LexIteratorT const &first, LexIteratorT const &last,
-    position_type const &act_pos, bool &found_eof,
+    position_type const &, bool &found_eof,
     token_type &found_directive, token_container_type &found_eoltokens)
 {
     using namespace boost::spirit::classic;
@@ -756,6 +769,10 @@ cpp_grammar_gen<LexIteratorT, TokenContainerT>::parse_cpp_grammar (
 }   // namespace grammars
 }   // namespace wave
 }   // namespace boost 
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS

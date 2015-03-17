@@ -92,6 +92,8 @@ public:
     static int report_error(Scanner const* s, int code, char const *, ...);
 
 private:
+    lexer& operator=(const lexer&);
+
     static char const *tok_names[];
 
     Scanner scanner;
@@ -357,6 +359,8 @@ public:
 #endif
 
 private:
+    lex_functor& operator=(const lex_functor&);
+
     lexer<IteratorT, PositionT, TokenT> re2c_lexer;
 };
 

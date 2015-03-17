@@ -53,7 +53,7 @@ namespace impl {
     template <typename StringT>
     inline bool 
     handle_identifier(boost::wave::token_id prev, 
-        boost::wave::token_id before, StringT const &value)
+        boost::wave::token_id, StringT const &value)
     {
         using namespace boost::wave;
         switch (static_cast<unsigned int>(prev)) {

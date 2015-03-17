@@ -53,6 +53,11 @@
 #include BOOST_ABI_PREFIX
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4706) // assignment within conditional expression
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace wave {
@@ -358,6 +363,8 @@ protected:
         token_sequence_type &result);
 
 private:
+    pp_iterator_functor& operator=(const pp_iterator_functor&);
+
     ContextT &ctx;              // context, this iterator is associated with
     boost::shared_ptr<base_iteration_context_type> iter_ctx;
 
@@ -2575,6 +2582,10 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 }   // namespace wave
 }   // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS
