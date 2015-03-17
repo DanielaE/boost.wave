@@ -42,7 +42,7 @@ template struct boost::wave::cpplexer::slex::new_lexer_gen<
 
 ///////////////////////////////////////////////////////////////////////////////
 int 
-main(int argc, char *argv[])
+main(int, char*[])
 {
     try {
         token_type::position_type pos("<testdata>");

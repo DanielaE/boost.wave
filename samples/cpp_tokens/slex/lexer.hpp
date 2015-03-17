@@ -999,6 +999,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_concat& operator=(const make_concat&);
 };
 
 template <int CharTSize>
@@ -1011,6 +1013,7 @@ struct get_byte_aux<1>
     unsigned char operator()(CharT c, unsigned int byte)
     {
         BOOST_ASSERT(byte == 0);
+        (void)byte;
         return c;
     }
 };
@@ -1081,6 +1084,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_star& operator=(const make_star&);
 };
 
 template <typename ScannerT>
@@ -1105,6 +1110,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_or& operator=(const make_or&);
 };
 
 template <typename ScannerT>
@@ -1134,6 +1141,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_plus& operator=(const make_plus&);
 };
 
 template <typename ScannerT>
@@ -1160,6 +1169,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_optional& operator=(const make_optional&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1511,6 +1522,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_char& operator=(const make_char&);
 };
 
 
@@ -1657,6 +1670,8 @@ public:
     }
 
     std::stack<node*>& m_stack;
+private:
+    make_ccl& operator=(const make_ccl&);
 };
 
 template <typename ScannerT>
@@ -1678,6 +1693,7 @@ public:
     void operator()(const char_t c) const
     {
         BOOST_ASSERT(c == '.');
+        (void)c;
         do_any_char();
     }
 
@@ -1690,6 +1706,8 @@ public:
 
         ccl_utils::create_nodes(rr, m_stack);
     }
+private:
+    make_any_char& operator=(const make_any_char&);
 };
 
 template <typename ScannerT>
@@ -1737,6 +1755,8 @@ public:
         }
         m_stack.push(top_node);
     }
+private:
+    make_string& operator=(const make_string&);
 };
 
 inline
@@ -1790,6 +1810,8 @@ public:
         top_node = repeat_node(top_node, count);
         m_stack.push(top_node);
     }
+private:
+    make_rep1& operator=(const make_rep1&);
 };
 
 template <typename ScannerT>
@@ -1828,6 +1850,8 @@ public:
         m_stack.push(top_node);
 
     }
+private:
+    make_rep2& operator=(const make_rep2&);
 };
 
 template <typename ScannerT>
@@ -1874,6 +1898,8 @@ public:
 
         m_stack.push(top_node);
     }
+private:
+    make_rep3& operator=(const make_rep3&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2037,6 +2063,8 @@ public:
 
     std::stack<node*> &node_stack;
 
+private:
+    lexer_grammar& operator=(const lexer_grammar&);
 }; // class lexer_grammar
 
 template <typename StringT>
@@ -2291,6 +2319,7 @@ public:
     };
 
 private:
+    lexer& operator=(const lexer&);
 
     void create_dfa_for_state(int state);
 
@@ -2805,6 +2834,8 @@ public:
     bool ignore_current_token_set();
 
 private:
+    lexer_control& operator=(const lexer_control&);
+
     TokenT& m_token;
     bool m_ignore_current_token;
     unsigned int& m_current_state;
