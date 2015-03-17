@@ -51,6 +51,8 @@ namespace on_exit {
         ~pop_front() { list.pop_front(); }
 
     private:
+        pop_front& operator=(const pop_front&);
+
         ContainerT &list;
     };
 
@@ -71,6 +73,8 @@ namespace on_exit {
         ~splice_pop_front() { list.pop_front(); }
 
     private:
+        splice_pop_front& operator=(const splice_pop_front&);
+
         ContainerT &list;
     };
 
@@ -90,6 +94,8 @@ namespace on_exit {
         ~reset() { target_value = old_value; }
 
     private:
+        reset& operator=(const reset&);
+
         TypeT &target_value;
         TypeT old_value;
     };
@@ -108,6 +114,8 @@ namespace on_exit {
         ~assign() { it = uit.base(); }
 
     private:
+        assign& operator=(const assign&);
+
         IteratorT &it;
         UnputIteratorT const &uit;
     };
@@ -120,6 +128,8 @@ namespace on_exit {
         ~assign() { it = uit; }
 
     private:
+        assign& operator=(const assign&);
+
         IteratorT &it;
         IteratorT const &uit;
     };
@@ -450,7 +460,7 @@ void call_skipped_token_hook(ContextT& ctx,
 ///////////////////////////////////////////////////////////////////////////////
 template <typename ContextT, typename IteratorT>
 inline bool 
-skip_to_token(ContextT& ctx, IteratorT &it, IteratorT const &end, 
+skip_to_token(ContextT&, IteratorT &it, IteratorT const &end, 
     token_id id, bool& seen_newline)
 {
     using namespace boost::wave;
@@ -512,6 +522,8 @@ public:
     }
 
 private:
+    find_concat_operator& operator=(const find_concat_operator&);
+
     bool &found_concat;
 };
 

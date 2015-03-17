@@ -1096,7 +1096,7 @@ inline void
 macromap<ContextT>::rescan_replacement_list(token_type const &curr_token,
     macro_definition_type &macro_def, ContainerT &replacement_list,
     ContainerT &expanded, bool expand_operator_defined,
-    IteratorT &nfirst, IteratorT const &nlast)
+    IteratorT &, IteratorT const &)
 {
     if (!replacement_list.empty()) {
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
@@ -1414,7 +1414,7 @@ string_type const &value = curr_token.get_value();
     char buffer[22];    // 21 bytes holds all NUL-terminated unsigned 64-bit numbers
 
         using namespace std;    // for some systems sprintf is in namespace std
-        sprintf(buffer, "%ld", main_pos.get_line());
+        sprintf(buffer, "%ld", static_cast<long>(main_pos.get_line()));
         expanded.push_back(token_type(T_INTLIT, buffer, curr_token.get_position()));
         return true;
     }
@@ -1829,7 +1829,7 @@ std::vector<token_type> param;
 template <typename ContextT>
 inline void
 macromap<ContextT>::init_predefined_macros(char const *fname,
-    defined_macros_type *scope, bool at_global_scope)
+    defined_macros_type *scope, bool)
 {
 // if no scope is given, use the current one
 defined_macros_type *current_scope = scope ? scope : current_macros;

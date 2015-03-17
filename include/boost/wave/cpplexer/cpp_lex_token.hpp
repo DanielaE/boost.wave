@@ -149,6 +149,7 @@ inline void *
 token_data<StringTypeT, PositionT>::operator new(std::size_t size)
 {
     BOOST_ASSERT(sizeof(token_data<StringTypeT, PositionT>) == size);
+    (void)size;
     typedef boost::singleton_pool<
             token_data_tag, sizeof(token_data<StringTypeT, PositionT>)
         > pool_type;
@@ -164,6 +165,7 @@ inline void
 token_data<StringTypeT, PositionT>::operator delete(void *p, std::size_t size)
 {
     BOOST_ASSERT(sizeof(token_data<StringTypeT, PositionT>) == size);
+    (void)size;
     typedef boost::singleton_pool<
             token_data_tag, sizeof(token_data<StringTypeT, PositionT>)
         > pool_type;

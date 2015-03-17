@@ -45,6 +45,12 @@
 #include BOOST_ABI_PREFIX
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4245) // conversion signed/unsigned mismatch
+# pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Encapsulation of the grammar for evaluation of constant preprocessor
@@ -861,6 +867,10 @@ expression_grammar_gen<TokenT>::evaluate(
 }   // namespace grammars
 }   // namespace wave
 }   // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS

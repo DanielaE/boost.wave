@@ -456,8 +456,8 @@ struct default_preprocessing_hooks
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT, typename ContainerT>
     bool 
-    emit_line_directive(ContextT const& ctx, ContainerT &pending, 
-        typename ContextT::token_type const& act_token)
+    emit_line_directive(ContextT const&, ContainerT &, 
+        typename ContextT::token_type const&)
     {
         return false;
     }
@@ -800,7 +800,7 @@ struct default_preprocessing_hooks
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT, typename ExceptionT>
     void
-    throw_exception(ContextT const& ctx, ExceptionT const& e)
+    throw_exception(ContextT const&, ExceptionT const& e)
     {
         boost::throw_exception(e);
     }

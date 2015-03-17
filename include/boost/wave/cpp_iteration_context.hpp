@@ -129,6 +129,9 @@ struct base_iteration_context
     std::size_t if_block_depth; // depth of #if block recursion
     ContextT& ctx;              // corresponding context<> object
     file_type type;             // the type of the handled file
+
+private:
+    base_iteration_context& operator=(const base_iteration_context&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -157,6 +160,9 @@ struct iteration_context
         InputPolicyT::template inner<self_type>::init_iterators(
             *this, act_pos, language_);
     }
+
+private:
+    iteration_context& operator=(const iteration_context&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

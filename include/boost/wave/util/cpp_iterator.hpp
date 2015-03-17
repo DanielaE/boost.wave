@@ -53,6 +53,11 @@
 #include BOOST_ABI_PREFIX
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4706) // assignment within conditional expression
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace wave {
@@ -794,7 +799,7 @@ typename ContextT::position_type pos = act_token.get_position();
             char buffer[22];
 
                 using namespace std;    // for some systems sprintf is in namespace std
-                sprintf (buffer, "%ld", pos.get_line());
+                sprintf (buffer, "%ld", static_cast<long>(pos.get_line()));
 
                 pos.set_column(++column);                 // account for ' '
                 pending.push_back(result_type(T_INTLIT, buffer, pos));
@@ -2575,6 +2580,10 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 }   // namespace wave
 }   // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS

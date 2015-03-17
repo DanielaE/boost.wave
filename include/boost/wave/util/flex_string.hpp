@@ -1423,7 +1423,7 @@ class flex_string : private Storage
 #else
     template <typename Exception>
     static inline void Enforce(bool condition, Exception*, const char* msg)
-    { BOOST_ASSERT(condition && msg); }
+    { BOOST_ASSERT(condition && msg); (void)condition; (void)msg;}
 #endif // defined(BOOST_WAVE_FLEXSTRING_THROW_ON_ENFORCE)
 
 #ifndef NDEBUG
@@ -1802,13 +1802,13 @@ private:
         if(!empty() && beginIterator != endIterator)
         {
             typedef const typename std::iterator_traits<Iterator>::value_type * 
-                pointer;
+                pointer_t;
 
-            pointer myBegin(&*begin());
-            pointer myEnd(&*begin() + size());
-            pointer rangeBegin(DereferenceValidIterator(beginIterator));
+            pointer_t myBegin(&*begin());
+            pointer_t myEnd(&*begin() + size());
+            pointer_t rangeBegin(DereferenceValidIterator(beginIterator));
 
-            const std::less_equal<pointer> less_equal = std::less_equal<pointer>();
+            const std::less_equal<pointer_t> less_equal = std::less_equal<pointer_t>();
             if(less_equal(myBegin, rangeBegin) && less_equal(rangeBegin, myEnd))
                 return true;
         }
