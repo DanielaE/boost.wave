@@ -147,11 +147,11 @@ public:
 
     template <typename Context, typename Container, typename Iterator>
     bool 
-    expanding_function_like_macro(Context const& ctx,
+    expanding_function_like_macro(Context const&,
         Token const& macro, std::vector<Token> const& formal_args, 
         Container const& definition,
         Token const& macrocall, std::vector<Container> const& arguments,
-        Iterator const& seqstart, Iterator const& seqend) 
+        Iterator const&, Iterator const&) 
     { 
         BOOST_WAVETEST_OSSTREAM strm;
         // trace real macro call
@@ -205,8 +205,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     bool 
-    expanding_object_like_macro(Context const& ctx, Token const& macro, 
-        Container const& definition, Token const& macrocall)
+    expanding_object_like_macro(Context const&, Token const& macro, 
+        Container const&, Token const&)
     { 
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "01: " << repr(macro.get_position()) << ": " 
@@ -228,7 +228,7 @@ public:
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
-    void expanded_macro(Context const& ctx, Container const& result)
+    void expanded_macro(Context const&, Container const& result)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "02: " << boost::wave::util::impl::as_string(result) << std::endl;
@@ -248,7 +248,7 @@ public:
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
-    void rescanned_macro(Context const& ctx, Container const& result)
+    void rescanned_macro(Context const&, Container const& result)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "03: " << boost::wave::util::impl::as_string(result) << std::endl;
@@ -280,7 +280,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     bool 
-    found_include_directive(Context const& ctx, std::string filename, 
+    found_include_directive(Context const&, std::string filename, 
         bool include_next) 
     {
         BOOST_WAVETEST_OSSTREAM strm;
@@ -313,8 +313,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     void 
-    opened_include_file(Context const& ctx, std::string relname, 
-        std::string absname, bool is_system_include) 
+    opened_include_file(Context const&, std::string relname, 
+        std::string absname, bool /*is_system_include*/) 
     {
         using boost::wave::util::impl::escape_lit;
 
@@ -340,7 +340,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     void
-    returning_from_include_file(Context const& ctx) 
+    returning_from_include_file(Context const&) 
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "06: " << std::endl;
@@ -377,8 +377,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     bool 
-    interpret_pragma(Context const& ctx, Container &pending, 
-        Token const& option, Container const& values, Token const& act_token)
+    interpret_pragma(Context const&, Container &, 
+        Token const&, Container const&, Token const&)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "07: " << std::endl;
@@ -412,7 +412,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     void
-    defined_macro(Context const& ctx, Token const& macro, 
+    defined_macro(Context const&, Token const& macro, 
         bool is_functionlike, std::vector<Token> const& pars, 
         Container const& definition, bool is_predefined)
     {
@@ -453,7 +453,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     void
-    undefined_macro(Context const& ctx, Token const& macro)
+    undefined_macro(Context const&, Token const& macro)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "09: " << repr(macro.get_position()) << ": " 
@@ -481,7 +481,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     bool
-    found_directive(Context const& ctx, Token const& directive)
+    found_directive(Context const&, Token const& directive)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "10: " << repr(directive.get_position()) << ": "
@@ -516,7 +516,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     bool
-    evaluated_conditional_expression(Context const& ctx, 
+    evaluated_conditional_expression(Context const&, 
         Token const& directive, Container const& expression, 
         bool expression_value)
     {
@@ -543,7 +543,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     void
-    skipped_token(Context const& ctx, Token const& token)
+    skipped_token(Context const&, Token const& token)
     {
         // this normally generates a lot of noise
         if (skipped_token_hooks) {
@@ -577,7 +577,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context>
     Token const&
-    generated_token(Context const& ctx, Token const& t)
+    generated_token(Context const&, Token const& t)
     { 
 // this generates a lot of noise
 //        BOOST_WAVETEST_OSSTREAM strm;
@@ -641,7 +641,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     bool
-    found_warning_directive(Context const& ctx, Container const& message)
+    found_warning_directive(Context const&, Container const& message)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "15: " << boost::wave::util::impl::as_string(message)
@@ -669,7 +669,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     bool
-    found_error_directive(Context const& ctx, Container const& message)
+    found_error_directive(Context const&, Container const& message)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "16: " << boost::wave::util::impl::as_string(message)
@@ -698,7 +698,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename Context, typename Container>
     void
-    found_line_directive(Context const& ctx, Container const& arguments,
+    found_line_directive(Context const&, Container const& arguments,
         unsigned int line, std::string const& filename)
     {
         BOOST_WAVETEST_OSSTREAM strm;
@@ -773,7 +773,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT>
     void
-    detected_include_guard(ContextT const& ctx, std::string filename,
+    detected_include_guard(ContextT const&, std::string filename,
         std::string const& include_guard) 
     {
         using boost::wave::util::impl::escape_lit;
@@ -811,7 +811,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT, typename TokenT>
     void
-    detected_pragma_once(ContextT const& ctx, TokenT const& pragma_token,
+    detected_pragma_once(ContextT const&, TokenT const& pragma_token,
         std::string filename) 
     {
         using boost::wave::util::impl::escape_lit;
@@ -852,8 +852,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT, typename ContainerT>
     bool
-    found_unknown_directive(ContextT const& ctx, ContainerT const& line, 
-        ContainerT& pending)
+    found_unknown_directive(ContextT const&, ContainerT const& line, 
+        ContainerT&)
     {
         BOOST_WAVETEST_OSSTREAM strm;
         strm << "21: " << repr((*line.begin()).get_position()) << ": " 
@@ -863,6 +863,8 @@ public:
     }
 
 private:
+    collect_hooks_information& operator=(const collect_hooks_information&);
+
     std::string& hooks_trace;
     bool skipped_token_hooks;
 };

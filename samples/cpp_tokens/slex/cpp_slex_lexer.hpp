@@ -88,6 +88,8 @@ protected:
         typename base_type::callback_t tokencb; // associated callback function
         unsigned int lexerstate;                // valid for lexer state
     };
+private:
+    lexer_base& operator=(const lexer_base&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -108,6 +110,8 @@ public:
     static boost::wave::util::time_conversion_helper compilation_time;
 
 private:
+    lexer& operator=(const lexer&);
+
     typedef lexer_base<IteratorT, PositionT> base_type;
 
     static typename base_type::lexer_data const init_data[INIT_DATA_SIZE];          // common patterns
