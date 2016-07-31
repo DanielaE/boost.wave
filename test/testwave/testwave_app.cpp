@@ -42,6 +42,7 @@
 
 #ifdef BOOST_MSVC
 # pragma warning(disable: 4127) // conditional expression is constant
+# pragma warning(disable: 4457) // declaration of ... hides function parameter
 #endif
 
 # ifdef BOOST_NO_STDC_NAMESPACE

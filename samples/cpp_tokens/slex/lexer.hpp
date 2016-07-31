@@ -63,6 +63,10 @@
 #define BOOST_SPIRIT_IT_NS std
 #endif
 
+#if defined(BOOST_MSVC)
+#pragma warning(disable: 4127)
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace spirit {
