@@ -359,8 +359,8 @@ public:
 
 private:
 
-    std::auto_ptr<node> m_left;
-    std::auto_ptr<node> m_right;
+    std::unique_ptr<node> m_left;
+    std::unique_ptr<node> m_right;
 };
 
 inline
@@ -487,8 +487,8 @@ public:
 
 private:
 
-    std::auto_ptr<node> m_left;
-    std::auto_ptr<node> m_right;
+    std::unique_ptr<node> m_left;
+    std::unique_ptr<node> m_right;
 };
 
 inline
@@ -638,7 +638,7 @@ public:
 
 private:
 
-    std::auto_ptr<node> m_left;
+    std::unique_ptr<node> m_left;
 };
 
 inline
@@ -2436,7 +2436,7 @@ bool find_acceptance_state(const node_set& eof_node_ids,
 }
 
 template <typename RegexListT, typename GrammarT>
-inline std::auto_ptr<node>
+inline std::unique_ptr<node>
 parse_regexes(const RegexListT& regex_list, GrammarT& g)
 {
     // parse the expressions into a tree
@@ -2444,18 +2444,17 @@ parse_regexes(const RegexListT& regex_list, GrammarT& g)
         boost::throw_exception(bad_regex());
 
     typename RegexListT::const_iterator ri = regex_list.begin();
-    std::auto_ptr<node> tree(lexerimpl::parse(g, (*ri).str));
+    std::unique_ptr<node> tree(lexerimpl::parse(g, (*ri).str));
     if (tree.get() == 0)
         boost::throw_exception(bad_regex());
 
     ++ri;
     for (/**/; ri != regex_list.end(); ++ri)
     {
-        std::auto_ptr<node> next_tree(lexerimpl::parse(g, (*ri).str));
+        std::unique_ptr<node> next_tree(lexerimpl::parse(g, (*ri).str));
         if (next_tree.get() == 0)
             boost::throw_exception(bad_regex());
-        std::auto_ptr<node> newnode(new or_node(tree.release(), next_tree.release()));
-        tree = newnode;
+        tree = std::unique_ptr<node>(new or_node(tree.release(), next_tree.release()));
     }
     return tree;
 }
@@ -2477,7 +2476,7 @@ inline void
 lexer<IteratorT, TokenT, CallbackT>::create_dfa_for_state(int state)
 {
     using lexerimpl::node;
-    std::auto_ptr<node> tree = lexerimpl::parse_regexes(m_regex_list[state], g);
+    std::unique_ptr<node> tree = lexerimpl::parse_regexes(m_regex_list[state], g);
     node_id_t dummy = 0;
     tree->assign_node_ids(dummy);
 
