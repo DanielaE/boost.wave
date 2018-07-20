@@ -40,6 +40,10 @@
 
 #include "lexer.hpp"   // "spirit/lexer.hpp"
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4063)
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace wave {
