@@ -457,6 +457,7 @@ skip_to_token(ContextT& ctx, IteratorT &it, IteratorT const &end,
     if (token_id(*it) == id)
         return true;
 
+    (void)ctx;
 //     call_skipped_token_hook(ctx, *it);
     if (++it == end)
         return false;

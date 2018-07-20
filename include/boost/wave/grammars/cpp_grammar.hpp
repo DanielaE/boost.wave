@@ -36,6 +36,11 @@
 #include BOOST_ABI_PREFIX
 #endif
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4245) // conversion signed/unsigned mismatch
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost {
 namespace wave {
@@ -729,7 +734,7 @@ boost::spirit::classic::tree_parse_info<
 >
 cpp_grammar_gen<LexIteratorT, TokenContainerT>::parse_cpp_grammar (
     LexIteratorT const &first, LexIteratorT const &last,
-    position_type const &act_pos, bool &found_eof,
+    position_type const &, bool &found_eof,
     token_type &found_directive, token_container_type &found_eoltokens)
 {
     using namespace boost::spirit::classic;
@@ -756,6 +761,10 @@ cpp_grammar_gen<LexIteratorT, TokenContainerT>::parse_cpp_grammar (
 }   // namespace grammars
 }   // namespace wave
 }   // namespace boost
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS

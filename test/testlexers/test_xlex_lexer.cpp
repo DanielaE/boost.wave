@@ -39,7 +39,7 @@ template struct boost::wave::cpplexer::xlex::new_lexer_gen<std::string::iterator
 
 ///////////////////////////////////////////////////////////////////////////////
 int 
-main(int argc, char *argv[])
+main(int, char*[])
 {
     try {
         token_type::position_type pos("<testdata>");
